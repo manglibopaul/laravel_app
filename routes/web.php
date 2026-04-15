@@ -6,7 +6,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('greet');
 });
 
 Route::get('/greet', [GreetController::class, 'index'])->name('greet');
