@@ -1,3 +1,21 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-6">
+        <div class="p-8 bg-white rounded-2xl shadow">
+            <h1 class="text-3xl font-bold mb-4">{{ config('app.name', 'Laravel') }}</h1>
+            <p class="text-gray-600">A minimal Laravel starter scaffold with Tailwind CSS integrated. Use the navigation to explore the app.</p>
+            <div class="mt-6">
+                <a href="{{ route('greet') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg mr-2">Greet</a>
+                <a href="{{ route('tasks.index') }}" class="px-4 py-2 border border-gray-300 rounded-lg">Tasks</a>
+            </div>
+        </div>
+
+        <div class="p-6 flex items-center justify-center">
+            <img src="/favicon.ico" alt="logo" class="w-32 h-32 opacity-80">
+        </div>
+    </div>
+@endsection
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

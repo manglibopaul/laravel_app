@@ -1,46 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
-</head>
-<body>
-    <h1>Edit Task</h1>
+@extends('layouts.app')
 
-    @if($errors->any())
-        <ul style="color:red;">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+@section('content')
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow">
+        <h2 class="text-2xl font-semibold mb-4">Edit Task</h2>
 
-    <form action="{{ route('tasks.update', $task) }}" method="POST">
-        @csrf
-        @method('PUT')
+        @if($errors->any())
+            <div class="mb-4 text-sm text-red-600">
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <div>
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title" value="{{ old('title', $task->title) }}" required>
-        </div>
+        <form action="{{ route('tasks.update', $task) }}" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
 
-        <div style="margin-top:12px;">
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50">{{ old('description', $task->description) }}</textarea>
-        </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Title</label>
+                <input type="text" name="title" value="{{ old('title', $task->title) }}" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
 
-        <div style="margin-top:12px;">
-            <label>
-                <input type="checkbox" name="is_completed" {{ $task->is_completed ? 'checked' : '' }}>
-                Mark as completed
-            </label>
-        </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea name="description" rows="4" class="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description', $task->description) }}</textarea>
+            </div>
 
-        <div style="margin-top:12px;">
-            <button type="submit">Update Task</button>
-            <a href="{{ route('tasks.index') }}">Cancel</a>
-        </div>
-    </form>
-</body>
-</html>
+            <div class="flex items-center gap-3">
+                <label class="inline-flex items-center gap-2 text-sm">
+                    <input type="checkbox" name="is_completed" class="rounded" {{ old('is_completed', $task->is_completed) ? 'checked' : '' }}>
+                    <span>Mark as completed</span>
+                </label>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Update</button>
+                <a href="{{ route('tasks.index') }}" class="text-sm text-gray-500">Cancel</a>
+            </div>
+        </form>
+    </div>
+@endsection
